@@ -1,0 +1,31 @@
+<launch>
+  <arg name="google" default="true" />
+
+  <!-- 登録した単語の音声認識をするlaunchファイル -->
+  <include if="$(arg google)" file="$(find ros_speech_recognition)/launch/speech_recognition.launch">
+    <arg name="launch_sound_play" value="false" />   
+    <arg name="language" value="ja-JP" />
+    <arg name="continuous" value="true" />
+    <arg name="voice_topic" value="/speech_to_text" />
+  </include>
+
+  <include unless="$(arg google)" file="$(find julius_ros)/launch/julius.launch">
+    <arg name="julius_output" value="screen"/>
+    <!--arg name="julius_args" value="-debug"/ -->
+  </include>
+
+  <!-- 認識したもの -> 話させるもの -->
+  <node name="sample_node" pkg="jp_pkg" type="sample_node.py"
+	output="screen">
+    <remap from="~input" to="/speech_to_text" />
+    <rosparam>
+      wait_duration: 5
+      confidence_threshold: 0.8 
+    </rosparam>
+  </node>
+
+  <!--日本語をしゃべるlaunchファイル -->
+  <include file="$(find aques_talk)/launch/aques_talk.launch">
+  </include>
+  
+</launch>
