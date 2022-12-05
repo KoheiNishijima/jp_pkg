@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>jp_pkg</name>
+  <version>0.0.0</version>
+  <description>The jp_pkg package</description>
+
+  <maintainer email="mech-user@todo.todo">mech-user</maintainer>
+
+
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+
+  <export>
+  </export>
+</package>
